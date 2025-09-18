@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'subject_detail_screen.dart';
+import 'login_screen.dart';
 import 'today_lesson_screen.dart';
 import 'practice_quiz_screen.dart';
 import 'rewards_screen.dart';
@@ -61,9 +62,8 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> with Si
   }
 
   void _handleLogout() {
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      '/login',
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (_) => const LoginScreen()),
       (route) => false,
     );
   }

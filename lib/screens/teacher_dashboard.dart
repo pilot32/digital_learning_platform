@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/class_stats.dart';
+import 'login_screen.dart';
 import '../models/recent_activity.dart';
 import '../widgets/custom_header.dart';
 import '../widgets/stats_slider.dart';
@@ -19,9 +20,8 @@ class _TeacherDashboardState extends State<TeacherDashboard> {
 
   void _handleLogout() {
     // Navigate back to login screen and remove all previous routes
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      '/',
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (_) => const LoginScreen()),
       (route) => false,
     );
   }
