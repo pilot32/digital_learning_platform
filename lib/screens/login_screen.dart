@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'student_dashboard_screen_clean.dart';
+import 'student_dashboard_screen.dart';
 import 'teacher_dashboard.dart';
 import '../models/student.dart';
 

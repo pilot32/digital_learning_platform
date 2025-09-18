@@ -552,6 +552,7 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> with Si
         color: '0xFFFF5722',
       ),
     ];  
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -989,6 +990,7 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> with Si
     ),
   );
 }
+      
 
 // Build subject card widget
 Widget _buildSubjectCard({
@@ -1312,6 +1314,15 @@ Widget _buildSubjectCard({
                   ),
                 ),
               ],
+            ),
+          ],
+          ),
+      ),
+      ),
+    );
+  }
+}
+
     return _higherSubjects.where((subject) {
       switch (stream) {
         case StreamCategory.science:
