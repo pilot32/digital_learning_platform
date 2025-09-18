@@ -28,7 +28,7 @@ class Lesson {
       'media_url': mediaUrl,
       'status': status,
       'duration_minutes': durationMinutes,
-      'order': lesson_order,
+      'lesson_order': lesson_order,
     };
   }
 
@@ -41,7 +41,7 @@ class Lesson {
       mediaUrl: map['media_url'],
       status: map['status'] ?? 'upcoming',
       durationMinutes: map['duration_minutes'],
-      lesson_order: map['order'],
+      lesson_order: map['lesson_order'],
     );
   }
 
@@ -53,7 +53,7 @@ class Lesson {
     String? mediaUrl,
     String? status,
     int? durationMinutes,
-    int? order,
+    int? lesson_order,
   }) {
     return Lesson(
       lessonId: lessonId ?? this.lessonId,
@@ -63,7 +63,7 @@ class Lesson {
       mediaUrl: mediaUrl ?? this.mediaUrl,
       status: status ?? this.status,
       durationMinutes: durationMinutes ?? this.durationMinutes,
-      lesson_order: order ?? this.lesson_order,
+      lesson_order: lesson_order ?? this.lesson_order,
     );
   }
 }

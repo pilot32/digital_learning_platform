@@ -28,9 +28,34 @@ class DatabaseHelper {
     String path = join(await getDatabasesPath(), 'student_dashboard.db');
     return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
     );
+  }
+
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      // Drop and recreate the lessons table to fix the column name issue
+      await db.execute('DROP TABLE IF EXISTS lessons');
+      await _createLessonsTable(db);
+    }
+  }
+
+  Future<void> _createLessonsTable(Database db) async {
+    await db.execute('''
+      CREATE TABLE lessons (
+        lesson_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        subject_id INTEGER NOT NULL,
+        lesson_title TEXT NOT NULL,
+        lesson_content TEXT NOT NULL,
+        media_url TEXT,
+        status TEXT DEFAULT 'upcoming',
+        duration_minutes INTEGER NOT NULL,
+        lesson_order INTEGER NOT NULL,
+        FOREIGN KEY (subject_id) REFERENCES subjects (subject_id) ON DELETE CASCADE
+      )
+    ''');
   }
 
   Future<void> _onCreate(Database db, int version) async {
@@ -63,19 +88,7 @@ class DatabaseHelper {
     ''');
 
     // Lessons Table
-    await db.execute('''
-      CREATE TABLE lessons (
-        lesson_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        subject_id INTEGER NOT NULL,
-        lesson_title TEXT NOT NULL,
-        lesson_content TEXT NOT NULL,
-        media_url TEXT,
-        status TEXT DEFAULT 'upcoming',
-        duration_minutes INTEGER NOT NULL,
-        lesson_order INTEGER NOT NULL,
-        FOREIGN KEY (subject_id) REFERENCES subjects (subject_id) ON DELETE CASCADE
-      )
-    ''');
+    await _createLessonsTable(db);
 
     // Progress Table
     await db.execute('''
