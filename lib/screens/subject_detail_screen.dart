@@ -3,7 +3,6 @@ import '../widgets/media_player_widget.dart';
 import '../widgets/lesson_list.dart';
 import '../models/subject.dart';
 import '../models/lesson.dart';
-import '../database/database_helper.dart';
 
 class SubjectDetailScreen extends StatefulWidget {
   const SubjectDetailScreen({super.key, required this.subject, this.studentId});
@@ -16,7 +15,6 @@ class SubjectDetailScreen extends StatefulWidget {
 }
 
 class _SubjectDetailScreenState extends State<SubjectDetailScreen> {
-  final DatabaseHelper _dbHelper = DatabaseHelper();
   List<Lesson> _lessons = [];
 
   @override
@@ -25,11 +23,37 @@ class _SubjectDetailScreenState extends State<SubjectDetailScreen> {
     _loadLessons();
   }
 
-  Future<void> _loadLessons() async {
-    final lessons = await _dbHelper.getLessonsBySubject(widget.subject.subjectId!);
-    setState(() {
-      _lessons = lessons;
-    });
+  void _loadLessons() {
+    // Mock lessons data
+    _lessons = [
+      Lesson(
+        subjectId: widget.subject.subjectId ?? 1,
+        lessonTitle: 'हिंदी व्याकरण - संज्ञा',
+        lessonContent: 'संज्ञा के प्रकार और उपयोग',
+        mediaUrl: 'https://example.com/hindi-noun',
+        status: 'completed',
+        durationMinutes: 30,
+        lesson_order: 1,
+      ),
+      Lesson(
+        subjectId: widget.subject.subjectId ?? 1,
+        lessonTitle: 'हिंदी व्याकरण - सर्वनाम',
+        lessonContent: 'सर्वनाम के प्रकार और उपयोग',
+        mediaUrl: 'https://example.com/hindi-pronoun',
+        status: 'completed',
+        durationMinutes: 25,
+        lesson_order: 2,
+      ),
+      Lesson(
+        subjectId: widget.subject.subjectId ?? 1,
+        lessonTitle: 'हिंदी व्याकरण - क्रिया',
+        lessonContent: 'क्रिया के प्रकार और उपयोग',
+        mediaUrl: 'https://example.com/hindi-verb',
+        status: 'in-progress',
+        durationMinutes: 35,
+        lesson_order: 3,
+      ),
+    ];
   }
 
   @override

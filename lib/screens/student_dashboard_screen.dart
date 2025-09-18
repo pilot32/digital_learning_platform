@@ -6,7 +6,6 @@ import 'rewards_screen.dart';
 import 'settings_screen.dart';
 import '../models/student.dart';
 import '../models/subject.dart';
-import '../database/database_helper.dart';
 
 class StudentDashboardScreen extends StatefulWidget {
   final Student? currentStudent;
@@ -18,7 +17,6 @@ class StudentDashboardScreen extends StatefulWidget {
 }
 
 class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
-  final DatabaseHelper _dbHelper = DatabaseHelper();
   Map<String, dynamic> _dashboardStats = {};
   List<Subject> _mainSubjects = [];
   List<Subject> _advancedSubjects = [];
@@ -29,18 +27,61 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
     _loadDashboardData();
   }
 
-  Future<void> _loadDashboardData() async {
-    if (widget.currentStudent != null) {
-      final stats = await _dbHelper.getDashboardStats(widget.currentStudent!.studentId!);
-      final mainSubjects = await _dbHelper.getSubjectsByCategory('main');
-      final advancedSubjects = await _dbHelper.getSubjectsByCategory('advanced');
-      
-      setState(() {
-        _dashboardStats = stats;
-        _mainSubjects = mainSubjects;
-        _advancedSubjects = advancedSubjects;
-      });
-    }
+  void _loadDashboardData() {
+    // Mock data for demonstration
+    _dashboardStats = {
+      'totalProgress': 20,
+      'completedLessons': 8,
+      'streakDays': 15,
+      'totalStars': 127,
+      'badgesEarned': 5,
+    };
+    
+    _mainSubjects = [
+      Subject(
+        subjectName: 'हिंदी',
+        description: 'Hindi Language Learning',
+        totalLessons: 20,
+        category: 'main',
+        icon: 'Icons.menu_book_rounded',
+        color: '0xFFFF7043',
+      ),
+      Subject(
+        subjectName: 'अंग्रेज़ी',
+        description: 'English Language Learning',
+        totalLessons: 18,
+        category: 'main',
+        icon: 'Icons.language_rounded',
+        color: '0xFF42A5F5',
+      ),
+      Subject(
+        subjectName: 'गणित',
+        description: 'Mathematics',
+        totalLessons: 25,
+        category: 'main',
+        icon: 'Icons.calculate_rounded',
+        color: '0xFF66BB6A',
+      ),
+    ];
+    
+    _advancedSubjects = [
+      Subject(
+        subjectName: 'विज्ञान',
+        description: 'Science',
+        totalLessons: 30,
+        category: 'advanced',
+        icon: 'Icons.science_rounded',
+        color: '0xFFAB47BC',
+      ),
+      Subject(
+        subjectName: 'सामाजिक विज्ञान',
+        description: 'Social Science',
+        totalLessons: 22,
+        category: 'advanced',
+        icon: 'Icons.public_rounded',
+        color: '0xFFFFB300',
+      ),
+    ];
   }
 
 

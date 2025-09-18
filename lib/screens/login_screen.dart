@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'student_dashboard_screen.dart';
-import '../database/database_helper.dart';
 import '../models/student.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -15,7 +14,6 @@ class _LoginScreenState extends State<LoginScreen>
   late TabController _tabController;
   final _studentFormKey = GlobalKey<FormState>();
   final _teacherFormKey = GlobalKey<FormState>();
-  final DatabaseHelper _dbHelper = DatabaseHelper();
 
   // Controllers
   final TextEditingController _studentEmailController = TextEditingController();
@@ -62,10 +60,18 @@ class _LoginScreenState extends State<LoginScreen>
       final email = _studentEmailController.text.trim();
       final password = _studentPasswordController.text.trim();
       
-      final isAuthenticated = await _dbHelper.authenticateStudent(email, password);
-      
-      if (isAuthenticated) {
-        final student = await _dbHelper.getStudentByEmail(email);
+      // Mock authentication - accept any email/password for demo
+      if (email.isNotEmpty && password.isNotEmpty) {
+        final student = Student(
+          name: 'राम कुमार',
+          email: email,
+          password: password,
+          grade: 'Class 10',
+          streakDays: 15,
+          totalStars: 127,
+          badgesEarned: 5,
+          createdAt: DateTime.now().subtract(const Duration(days: 30)),
+        );
         _handleLogin('student', student);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
