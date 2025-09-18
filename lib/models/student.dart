@@ -4,6 +4,7 @@ class Student {
   final String email;
   final String password; // hashed
   final String grade;
+  final String? profileImageUrl;
   final int streakDays;
   final int totalStars;
   final int badgesEarned;
@@ -15,6 +16,7 @@ class Student {
     required this.email,
     required this.password,
     required this.grade,
+    this.profileImageUrl,
     this.streakDays = 0,
     this.totalStars = 0,
     this.badgesEarned = 0,
@@ -28,6 +30,7 @@ class Student {
       'email': email,
       'password': password,
       'grade': grade,
+      'profile_image_url': profileImageUrl,
       'streak_days': streakDays,
       'total_stars': totalStars,
       'badges_earned': badgesEarned,
@@ -42,6 +45,7 @@ class Student {
       email: map['email'],
       password: map['password'],
       grade: map['grade'],
+      profileImageUrl: map['profile_image_url'],
       streakDays: map['streak_days'] ?? 0,
       totalStars: map['total_stars'] ?? 0,
       badgesEarned: map['badges_earned'] ?? 0,
@@ -55,6 +59,7 @@ class Student {
     String? email,
     String? password,
     String? grade,
+    String? profileImageUrl,
     int? streakDays,
     int? totalStars,
     int? badgesEarned,
@@ -66,6 +71,7 @@ class Student {
       email: email ?? this.email,
       password: password ?? this.password,
       grade: grade ?? this.grade,
+      profileImageUrl: profileImageUrl ?? this.profileImageUrl,
       streakDays: streakDays ?? this.streakDays,
       totalStars: totalStars ?? this.totalStars,
       badgesEarned: badgesEarned ?? this.badgesEarned,
